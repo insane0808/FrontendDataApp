@@ -9,11 +9,23 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const [openAlert, setOpenAlert] = useState(false);
 
     const handleLogin = async () => {
         const response = await axios.post("http://localhost:3020/api/login", {
@@ -31,12 +43,12 @@ export default function Login() {
         }
 
         else {
-            // toast({
-            //     description: response.message,
-            //   })
+            setOpenAlert(true);
         }
     }
-
+    const handleCloseAlert = () => {
+        setOpenAlert(false);
+    }
     return (
         <div class="flex items-center justify-center h-screen">
             <div class="bg-white p-6 rounded-md">
@@ -59,7 +71,22 @@ export default function Login() {
                         <Button className="w-full bg-gray-900 hover:bg-gray-700 text-white" variant="outline" onClick={handleLogin} >Sign in</Button>
                     </CardFooter>
                 </Card>
-
+                < AlertDialog open={openAlert} className="bg-white m-0 h-4/6 " >
+                    {/*    */}
+                    <AlertDialogContent setOpenAlert={setOpenAlert} className="bg-white flex flex-wrap h-3.5/5 ">
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Username or password entered is incorrect , please try again !</AlertDialogTitle>
+                            {/* <AlertDialogDescription>
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
+      </AlertDialogDescription> */}
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel onClick={handleCloseAlert} >Cancel </AlertDialogCancel>
+                            {/* <AlertDialogAction>Cancel</AlertDialogAction> */}
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </div>
         </div >
     )

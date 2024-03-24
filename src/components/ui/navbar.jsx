@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import {
@@ -17,8 +17,11 @@ import {
 
 
 const Navbar = () => {
-  const handleLogout = () => {
+  const navigate  = useNavigate();
 
+  const handleLogout = () => {
+    localStorage.setItem("token", null);
+    navigate("/login");
   }
   return (
 
@@ -69,17 +72,17 @@ const Navbar = () => {
       <div className="space-x-20">
         <Link to="/watchlist" className="text-white font-bold text-2xl">Watchlist</Link>
         <Link to="/esmtnt" className="text-white font-bold text-2xl">EsmnT2T</Link>
-        <AlertDialog >
+        <AlertDialog className="bg-white m-0 h-4/6 " >
           <AlertDialogTrigger asChild>
             <Button className="text-white font-bold text-2xl" variant="outline">Logout</Button>
           </AlertDialogTrigger>
-          <AlertDialogContent className = "bg-gray-900">
+          <AlertDialogContent className="bg-white flex flex-wrap h-3.5/5 ">
             <AlertDialogHeader>
-              <AlertDialogTitle className = "text-gray-900">Are you absolutely sure to logout?</AlertDialogTitle>
+              <AlertDialogTitle className = "text-gray-900">Are you sure absolutely sure ,  you want to logout?</AlertDialogTitle>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction>Logout</AlertDialogAction>
+              <AlertDialogAction onClick={handleLogout} >Logout </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
