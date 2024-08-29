@@ -75,7 +75,30 @@ const modifiedColumns = ({ handleDelete, handleData, stockDataCol }) => {
 
     const columnKeys = [
         {
-            accessorKey: "action",
+            accessorKey: "addaction",
+            header: "",
+            cell: ({ row }) => {
+                const symbol = row.getValue("symbol");
+
+                return (<AlertDialog className="bg-white-900" >
+                    <AlertDialogTrigger asChild>
+                        <Button className="capitalize flex flex row gap-2"> <PlusSquare className="text-red-500" /> </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-white">
+                        <AlertDialogHeader>
+                            <AlertDialogTitle className="text-stone-900">Do you want to add this stock to watchlist?</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogAction className="text-stone-900 font-bold border-stone-900 font-semibold rounded-full gap-2 border-slate-900 hover:bg-slate-500 w-[150px]" onClick={handleDelete && handleDelete({ symbol })}>Yes</AlertDialogAction>
+                            <AlertDialogCancel className="text-white  bg-slate-900 font-bold font-semibold rounded-full gap-2 hover:bg-slate-500 w-[150px]">Cancel</AlertDialogCancel>
+
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>)
+            },
+        },
+        {
+            accessorKey: "deleteaction",
             header: "",
             cell: ({ row }) => {
                 const symbol = row.getValue("symbol");
@@ -120,6 +143,17 @@ const modifiedColumns = ({ handleDelete, handleData, stockDataCol }) => {
             cell: ({ row }) => (
                 <div className="capitalize">{row.getValue("series")}</div>
             ),
+        },
+        {
+            accessorKey: "liveprice",
+            header: () => <div className="text-right">Live Price</div>,
+            cell: ({ row }) => {
+                const amount = parseFloat(row.getValue("liveprice"))
+
+                // Format the amount as a dollar amount
+
+                return <div className="text-right font-medium"> - </div>
+            },
         },
         {
             accessorKey: "percentage_change",
@@ -281,17 +315,7 @@ const modifiedColumns = ({ handleDelete, handleData, stockDataCol }) => {
                 <div className="capitalize">{row.getValue("turnover")}</div>
             ),
         },
-        {
-            accessorKey: "liveprice",
-            header: () => <div className="text-right">Live Price</div>,
-            cell: ({ row }) => {
-                const amount = parseFloat(row.getValue("liveprice"))
-
-                // Format the amount as a dollar amount
-
-                return <div className="text-right font-medium">34646</div>
-            },
-        }
+        
     ];
     if (stockDataCol) {
 

@@ -75,6 +75,9 @@ const Watchlist = () => {
     const stockDataCol = ['symbol', 'series', 'percentage_change', 'openprice', 'highprice', 'lowprice', 'closeprice',
         'prevclose', 'totaltradeqty', 'deliveryqty', 'deliverypercent', 'turnover'];
 
+    const watchlistCol = ['deleteaction','symbol', 'series', 'percentage_change', 'openprice', 'highprice', 'lowprice', 'closeprice',
+    'prevclose', 'totaltradeqty', 'deliveryqty', 'deliverypercent', 'turnover','liveprice'];
+
     const stockData_ = paginateData(page,stockData)
 
     useEffect(() => {
@@ -90,7 +93,7 @@ const Watchlist = () => {
 
     return (
         <div className="p-10 bg-white space-y-10">
-            <div><DataTableDemo hideKeys={true}  data={apiData} handleDelete={handleDeleteStock} handleData={handleLastDaysData} setFrequency={setFrequency} frequency={frequency} showPagination ={false} /></div>
+            <div><DataTableDemo hideKeys={true} stockDataCol={watchlistCol} data={apiData} handleDelete={handleDeleteStock} handleData={handleLastDaysData} setFrequency={setFrequency} frequency={frequency} showPagination ={false} /></div>
             <Dialog open={openDialog} className="bg-white m-0 h-4/6 ">
                 <DialogContent className="bg-white flex flex-wrap h-3.5/5 " setOpen={setOpenDialog}>
                     <DataTableDemo  hideKeys={false} data={stockData_} stockDataCol={stockDataCol} className="flex flex-wrap mt-[1.5%]" classNames={{ root :"mt-[1.5%]"} } showPagination ={true} setPage={setPage} totalPages= {totalPages}/>

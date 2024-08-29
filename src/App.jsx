@@ -2,7 +2,7 @@ import './App.css'
 import Login from "./pages/login"
 import Home from "./pages/home"
 import Watchlist from "./pages/watchlist"
-import ESMTNT from "./pages/esmtnt"
+import File from "./pages/file"
 import { BrowserRouter, Routes, Route, useLocation, useNavigate } from "react-router-dom"
 import { ErrorBoundary } from 'react-error-boundary'
 import ErrorFallback from "./components/ui/error-boundary";
@@ -30,12 +30,12 @@ function App() {
         {token && (
           <Navbar />
         )}
-        <div className = "h-80">
+        <div className = "h-full">
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Home />} exact />
             <Route path="/watchlist" element={<Watchlist />} />
-            <Route path="/esmtnt" element={<ESMTNT />} />
+            <Route path="/file" element={<File />} />
           </Routes>
         </div>
       </Suspense>
