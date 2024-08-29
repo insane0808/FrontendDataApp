@@ -20,20 +20,12 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-export default function DatePicker({setFilterDate}) {
-  //const {setFilterDate} = props;
-  const [date, setDate] = React.useState()
-  const handleSelect = (selectedDate) => 
-  {
+export default function DatePicker({filterRef, ...props}) {
+  const [date, setDate] = React.useState(filterRef.current.date)
+  const handleSelect = (selectedDate) => {
     setDate(selectedDate);
-    
+    filterRef.current.date = selectedDate
   }
-  useEffect(() => {
-    if (date) {
-        setFilterDate(date);
-    }
-  }, [date, setFilterDate]);
-
 
   return (
     <Popover >
